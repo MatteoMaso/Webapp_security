@@ -1,0 +1,15 @@
+/* This is just an example.. then fell free to modify this file  */
+
+body
+{
+  font-family: Arial, sans-serif;
+  overflow: scroll;
+}
+
+#main_menu
+{
+  list-style-type: none;
+  background-color: #ccf;
+  padding: 10px;
+  border-radius: 10px;
+}
