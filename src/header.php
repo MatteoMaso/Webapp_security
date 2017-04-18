@@ -8,5 +8,5 @@
   <body>
     <div id="container">
       <header>
-        <h1><a href="index.php">checkList</a></h1>
+        <h1>Check List</h1>
       </header>

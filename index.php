@@ -1,5 +1,7 @@
 <?php
 
+  session_start();
+
   include "src/header.php";
   include "src/mainmenu.php";
  ?>
