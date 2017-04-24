@@ -38,3 +38,6 @@ input[type="submit"]
     text-decoration:none;
     font-family:helvetica;
     color:black;
+    background:#CFCFCF;
+ cursor: pointer;
+}
