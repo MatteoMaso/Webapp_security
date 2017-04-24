@@ -4,12 +4,13 @@ body
 {
   font-family: Arial, sans-serif;
   overflow: scroll;
+background-color:#6C7B8B;
 }
 
 #main_menu
 {
   list-style-type: none;
-  background-color: #ccf;
+  background-color:#9C9C9C;
   padding: 10px;
   border-radius: 10px;
 }
@@ -37,6 +38,3 @@ input[type="submit"]
     text-decoration:none;
     font-family:helvetica;
     color:black;
-    background:#CFCFCF;
-
-}
