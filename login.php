@@ -45,6 +45,7 @@
      <p><label for="username">Username: </label> <input type="text" name="username" id="username"/><span class="error">* <?php echo $usernameErr;?></span></p>
      <p><label for="username">Password: </label> <input type="text" name="password" id="password"/><span class="error">* <?php echo $passwordErr;?></span></p>
      <p class="center"><input value="Login" type="submit" class="center" /></p>
+
    </fieldset>
  </form>
 
@@ -56,7 +57,21 @@
     echo '<p>Error: Please check your field</p>';
   } else {
     //verify if username and password is correct in database and if yes login, otherwise retry
+    $result = verifyUser($username, $password);
+    if($result == 1){
+      //userverify
+      $_SESSION['login'] = "OK";
+		  $_SESSION['username'] = $username;
+      echo "ok username found";
+      echo '<p> <a href="private.php">Enter</a> </p> ';
+    } else {
+      //userwrong
+      echo "user don't found";
+    }
   }
+
+
+
 
  ?>
 

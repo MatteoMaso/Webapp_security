@@ -1,7 +1,7 @@
 <?php
-	session_start();
+	//session_start();
 
-	include "validate.php";
+	//include "validate.php";
 	include "src/header.php";
 	include "src/mainmenu.php";
 ?>
