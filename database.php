@@ -28,6 +28,35 @@
         }
     }
 
+		//return 1 if username is correct else return 0
+		function verifyUser($username, $password){
+			$database = getConn();
+			$sql = "SELECT id, username, password FROM users WHERE username='$username'";
+			$result = $database->query($sql);
+			$verify = 0;
+
+			if ($result->num_rows >0){
+				// output data of each row
+    		while($row = $result->fetch_assoc()) {
+					if($row["password"] == $password){
+        		//echo "id: " . $row["id"]. " - Username: " . $row["username"]. " " . $row["password"]. "<br>";
+						$database->close();
+						return 1; //usercorrect
+					}
+    		}
+				echo "Please retry password \n";
+			} else {
+    		echo "Please retry username wrong \n";
+			}
+
+			$database->close();
+			return 0; //user incorrect
+
+
+
+
+		}
+
     // Test
     //checkUsername("hello");
     //resetDatabase();
