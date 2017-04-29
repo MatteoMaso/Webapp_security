@@ -9,6 +9,24 @@
         return $database;
     }
 
+		function createTable(){
+			$database = getConn();
+			$sql = "CREATE TABLE IF NOT EXISTS tasks(
+			  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+			  username VARCHAR(512) NOT NULL,
+			  task VARCHAR(512) NOT NULL,
+			  done VARCHAR(512) NOT NULL
+			)";
+
+			if ($database->query($sql) === TRUE) {
+    		//echo "Table Tasks created successfully <br>";
+			} else {
+    		echo "Error creating table: " . $database->error;
+			}
+			$database->close();
+		}
+
+
     function checkUsername($username) {
     	$database = getConn();
 
@@ -39,7 +57,7 @@
 				// output data of each row
     		while($row = $result->fetch_assoc()) {
 					if($row["password"] == $password){
-        		//echo "id: " . $row["id"]. " - Username: " . $row["username"]. " " . $row["password"]. "<br>";
+        	//	echo "id: " . $row["id"]. " - Username: " . $row["username"]. " " . $row["password"]. "<br>";
 						$database->close();
 						return 1; //usercorrect
 					}
@@ -51,10 +69,6 @@
 
 			$database->close();
 			return 0; //user incorrect
-
-
-
-
 		}
 
     // Test
