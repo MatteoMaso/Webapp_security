@@ -9,7 +9,7 @@
  <h1>WELCOME TO YOUR CHECK-LIST</h1>
 
  <p>
-   bref description of what we can do hear
+In this web site you can take note of all your task
  </p>
 
 <?php include "src/footer.php" ?>

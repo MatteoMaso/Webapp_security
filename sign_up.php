@@ -76,31 +76,21 @@
 
  <?php
 
- // for checking
- echo "<h2>Your Input:</h2>";
- echo $username;
- echo "<br>";
- echo $email;
- echo "<br>";
- echo $password;
- echo "<br>";
- echo $ok;
-
 
  //if all the controll are ok, add user to database
  if(!($ok == 3)){
-   echo '<p>Error: Please check your field</p>';
+   //echo '<p>Error: Please check your field</p>';
  } else { //field is correct
    //check is the username is available
    $control = checkUsername($username);
    if ($control == false) {
      include "src/header.php";
-     echo '<p>Error: Please choose other Username</p>';
-     echo '<p><a href="sign_up.php">Try again</p>';
+     //echo '<p>Error: Please choose other Username</p>';
+     //echo '<p><a href="sign_up.php">Try again</p>';
      include "src/footer.php";
    } else {
      $control = addUser($email, $username, $password);
-     echo $control;
+     //echo $control;
      header('Location: private.php');
    }
 

@@ -60,6 +60,11 @@
     $result = verifyUser($username, $password);
     if($result == 1){
       //userverify
+      $cookie_name = "user";
+      $cookie_value = $username;
+      setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
+
+
       $_SESSION['login'] = "OK";
 		  $_SESSION['username'] = $username;
       echo "ok username found";
@@ -67,6 +72,7 @@
     } else {
       //userwrong
       echo "user don't found";
+      $_SESSION['login'] = "NOT";
     }
   }
 
