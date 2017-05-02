@@ -64,15 +64,11 @@
       $cookie_value = $username;
       setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
 
-
-      $_SESSION['login'] = "OK";
-		  $_SESSION['username'] = $username;
-      echo "ok username found";
+      echo "Hello " .$username."";
       echo '<p> <a href="private.php">Enter</a> </p> ';
     } else {
       //userwrong
       echo "user don't found";
-      $_SESSION['login'] = "NOT";
     }
   }
 
