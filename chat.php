@@ -15,7 +15,7 @@ mysql_connect("localhost", "root", "");
 mysql_select_db("DATABASE");
 //this code is used for protection.
 $message = mysql_real_escape_string(htmlspecialchars($_POST['message']));
-$nickname = mysql_real_escape_string(htmlspecialchars($_POST['username']));
+$username = mysql_real_escape_string(htmlspecialchars($_POST['username']));
 // save to database (create a table, name is chat)
 mysql_query("INSERT INTO chat VALUES('', '$username', '$message')");
 // close database
