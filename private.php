@@ -3,13 +3,14 @@
 	include "src/header.php";
 	include "src/mainmenu.php";
 	$cookie_name = "user";
+	$cookie_password = "password";
 	$username = $task = $taskErr = "";
 
 	//check if cookie are enable
 	if((count($_COOKIE) > 0) && !(checkUsername($_COOKIE[$cookie_name]))) {
 		$username = $_COOKIE[$cookie_name];
 		$ok = 0;
-			echo '<h2>Welcome ' . $_COOKIE[$cookie_name] . '!</h2>';
+			echo '<h2>Welcome ' . $_COOKIE[$cookie_name]. '!</h2>';
 			if ($_SERVER["REQUEST_METHOD"] == "GET"){
 					$donelist = isset($_GET['list']) ? $_GET['list'] : array();
 
@@ -53,41 +54,43 @@
 
 
 		function printTask($username){
-			$database = getConn();
-			createTable(); //create table if not exist
-			$sql = "SELECT * FROM tasks";
-			$result = $database->query($sql);
-			if ($result->num_rows >0){
-				// output data of each row
-				while($row = $result->fetch_assoc()) {
-					if(($row["username"] == $username) && ($row["done"] == '0')){
-						$task_without_underscore = str_replace("_", " ", $row["task"]);
-						echo " id ".$row["id"]. "<input type='checkbox' name='list[]' value=" .$row["task"]."/>".$task_without_underscore ."<br/><br/>";
+			if(verifyUser($username, $_COOKIE["password"]) == 1){
+					$database = getConn();
+					createTable(); //create table if not exist
+					$sql = "SELECT * FROM tasks";
+					$result = $database->query($sql);
+					if ($result->num_rows >0){
+						// output data of each row
+						while($row = $result->fetch_assoc()) {
+							if(($row["username"] == $username) && ($row["done"] == '0')){
+								$task_without_underscore = str_replace("_", " ", $row["task"]);
+								echo " id ".$row["id"]. "<input type='checkbox' name='list[]' value=" .$row["task"]."/>".$task_without_underscore ."<br/><br/>";
+							}
+						}
 					}
-				}
+					$database->close();
 			}
-			$database->close();;
 		}
 
 		function removeTask($username, $task){
-			if (checkUsername($username)) {
-				//username wrong
-			} else {
-				$database = getConn();
-				$sql = "UPDATE tasks SET done='boh' WHERE username='$username' AND task='$task'";
-				$result = $database->query($sql);
-				$database->close();
-			}
+			if(verifyUser($username, $_COOKIE["password"]) == 1){
+						$database = getConn();
+						$sql = "UPDATE tasks SET done='boh' WHERE username='$username' AND task='$task'";
+						$result = $database->query($sql);
+						$database->close();
+					}
 		}
 
 		function addTask($username, $task) {
-			$database = getConn();
-			$str = str_replace(" ", "_", $task);
-			$query = "INSERT INTO tasks (username, task, done) VALUES ('$username', '$str', '0')";
-			$result = mysqli_query($database, $query);
-			mysqli_close($database);
-			//printTask($username);
-			return $result;
+			if(verifyUser($username, $_COOKIE["password"]) == 1){
+					$database = getConn();
+					$str = str_replace(" ", "_", $task);
+					$query = "INSERT INTO tasks (username, task, done) VALUES ('$username', '$str', '0')";
+					$result = mysqli_query($database, $query);
+					mysqli_close($database);
+					//printTask($username);
+					return $result;
+			}
 		}
 ?>
 

@@ -39,10 +39,13 @@
   }
  ?>
 
+
+
+
  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
    <fieldset>
      <legend>Login</legend>
-     <p><label for="username">Username: </label> <input type="text" name="username" id="username"/><span class="error">* <?php echo $usernameErr;?></span></p>
+     <p><label for="username">Insert Username not email: </label> <input type="text" name="username" id="username"/><span class="error">* <?php echo $usernameErr;?></span></p>
      <p><label for="username">Password: </label> <input type="text" name="password" id="password"/><span class="error">* <?php echo $passwordErr;?></span></p>
      <p class="center"><input value="Login" type="submit" class="center" /></p>
 
@@ -52,6 +55,23 @@
 <?php
 
   include "database.php";
+  echo '<br/> <br/> <form class="reset" name="form_reset" method="post">
+    <input type="submit" name="reset" value="Reset Database" onclick="resetDatabase()"/>
+  </form>';
+
+  if(isset($_POST['reset'])){
+    $database = getConn();
+    $sql = "DELETE FROM users";
+    $result = $database->query($sql);
+
+    $sql = "DELETE FROM tasks";
+    $result = $database->query($sql);
+
+    echo "Database reset ok!";
+
+    $database->close();
+  }
+
 
   if(!($ok == 2)){
     echo '<p>Error: Please check your field</p>';
@@ -62,7 +82,9 @@
       //userverify
       $cookie_name = "user";
       $cookie_value = $username;
+      $cookie_password = "password";
       setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
+      setcookie($cookie_password, $password, time() + (86400), "/"); // 86400 = 1 day
 
       echo "Hello " .$username."";
       echo '<p> <a href="private.php">Enter</a> </p> ';
