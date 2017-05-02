@@ -79,8 +79,8 @@
      include "src/footer.php";
    } else {
      $control = addUser($email, $username, $password);
-     //echo $control;
-     header('Location: private.php');
+     echo "<br/><br/> User correctly added <br/><br/> Please go to login page and Start your experience <br/><br/>";
+     //header('Location: index.php');
    }
  }
  //this function have to move to database.php and add controll on string

@@ -71,6 +71,7 @@
 			return 0; //user incorrect
 		}
 
+
     // Test
     //checkUsername("hello");
     //resetDatabase();
