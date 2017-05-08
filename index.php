@@ -19,10 +19,8 @@
 </div>
 
 <?php
-	include_once "src/footer.php";
-?>
 
-<!--
+
 echo '<br/> <br/> <form class="init" name="form_init" method="post">
   <input type="submit" name="initUser" value="Reset and Initialize Users List Before start Haking" onclick="initUsers()"/>
 </form>';
@@ -53,6 +51,5 @@ if(isset($_POST['initUser'])){
   $database->close();
 }
 
-
-
-?-->
+include_once "src/footer.php";
+?>
