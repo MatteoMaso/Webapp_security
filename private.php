@@ -113,7 +113,24 @@
 		</fieldset>
 	</form>
 
-	<p><a href="exit.php">Exit</a></p>
+
+	<form class="exit" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+		<input type="submit" name="exit" value="Exit"  id="exit" />
+	</form>
+
+
 <?php
+
+function exit_user(){
+	echo "dento exit";
+	setcookie("user", "", time() - (3600), "/");
+  setcookie("password", "", time() - 3600, "/");
+  header("Location: login.php");
+}
+
+if(array_key_exists('exit', $_POST)){
+	exit_user();
+}
+
 	include "src/footer.php";
 ?>
