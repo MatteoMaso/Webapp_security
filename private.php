@@ -10,7 +10,7 @@
 	if((count($_COOKIE) > 0) && !(checkUsername($_COOKIE[$cookie_name]))) {
 		$username = $_COOKIE[$cookie_name];
 		$ok = 0;
-			echo '<h2>Welcome ' . $_COOKIE[$cookie_name]. '!</h2>';
+			//echo '<h2>Welcome ' . $_COOKIE[$cookie_name]. '!</h2>';
 			if ($_SERVER["REQUEST_METHOD"] == "GET"){
 					$donelist = isset($_GET['list']) ? $_GET['list'] : array();
 
@@ -64,7 +64,10 @@
 						while($row = $result->fetch_assoc()) {
 							if(($row["username"] == $username) && ($row["done"] == '0')){
 								$task_without_underscore = str_replace("_", " ", $row["task"]);
-								echo " id ".$row["id"]. "<input type='checkbox' name='list[]' value=" .$row["task"]."/>".$task_without_underscore ."<br/><br/>";
+								$task_id = $row["id"];
+								$task_val = $row["task"];
+								echo "<tr><td><input type=\"checkbox\" name=\" list[]\" value=\"$task_val\"/></td><td>$task_id</td><td>$task_without_underscore</td></tr>";
+								//echo " id ".$row["id"]. "<input type='checkbox' name='list[]' value=" .$row["task"]."/>".$task_without_underscore ."<br/><br/>";
 							}
 						}
 					}
@@ -93,30 +96,52 @@
 			}
 		}
 ?>
+<div class="container">
+	<h1>Welcome, <?php echo $_COOKIE[$cookie_name] ?>!</h1>
 
-	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
-		<fieldset>
-			<?php printTask($username); ?>
-			<p class="center"><input value="Task done!" type="submit" /></p>
-		</fieldset>
-	</form>
+	<div class="col-sm-12">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+			<h3 class="sub-header">Add new note</h3>
 
+			<label for="inputContent" class="sr-only">Task content</label>
+			<input type="text" id="inputContent" name="task" class="form-control" placeholder="Task content" required="" autofocus="">
 
-	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-		<fieldset>
-			<legend>New task</legend>
-			<p>
-				<label for="task">Task:</label> <input type="task" name="task" id="task" />
-				<span class="error">* <?php echo $taskErr;?></span>
-			</p>
-			<p class="center"><input value="Save" type="submit" /></p>
-		</fieldset>
-	</form>
+			<input class="btn btn-warning" style="margin-top: 10px;" value="Save" type="submit" />
+		</form>
+	</div>
 
+	<div class="col-sm-12">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
+			<h3 class="sub-header">Note list</h3>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th></th>
+						<th>#</th>
+						<th>Content</th>
+					</tr>
+	            </thead>
 
-	<form class="exit" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-		<input type="submit" name="exit" value="Exit"  id="exit" />
-	</form>
+	            <tbody>
+	            	<?php printTask($username); ?>
+	            	<!--tr>
+	            		<td></td>
+	            		<td>1</td>
+	            		<td>Lorem</td>
+	            	</tr-->
+	            </tbody>
+	        </table>
+
+					<input class="btn btn-danger" style="margin-top: 10px;" value="Delete" type="submit" />
+		</form>
+
+		<form class="exit" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+			<input type="submit" name="exit" value="Exit"  id="exit" />
+		</form>
+
+	</div>
+</div>
+
 
 
 <?php

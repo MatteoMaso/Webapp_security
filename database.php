@@ -62,13 +62,12 @@
 						return 1; //usercorrect
 					}
     		}
-				echo "Please retry password \n";
-			} else {
-    		echo "Please retry username wrong \n";
+				//echo "Please retry password \n";
+				return 2;
 			}
-
-			$database->close();
-			return 0; //user incorrect
+    		//echo "Please retry username wrong \n";
+    		$database->close();
+    		return 3;
 		}
 
 

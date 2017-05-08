@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="Check List App">
+<meta name="author" content="MAP Team">
+
+<title>MAP Team</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!--link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css"-->
+<head>
+
+<!-- Navigation -->
+<style>
+body {
+  font-family: Arial, sans-serif;
+  overflow: scroll;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+</style>
+<!-- #myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+</style-->
+</head>
+
+<body cz-shortcut-listen="true">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">MAP Team Project Work</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#source-code">Source code</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#members">Members</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<div class="container">
+<h1 id="introduction"> Introduction </h1>
+<p>In this project, there are 2 security vulnerables regarding authentication functionality and SQL injection.</p>
+<a href="login.php">
+  <h3>Task 1</h3>
+</a>
+<p>
+  Vulnerable authentication allows the enumeration of usernames and passwords.
+  <br>
+  There is no need to perform letter based brute force since valid usernames and passwords are from the given list.
+  <br>
+  <br>
+  There are 7 usernames are valid in this task.
+  <br>
+  <br>
+  Registration form allows user unumeration. Create a script or use Burp proxy to find out the correct usernames from the given list.
+  <br>
+  After found correct username, you can go on to brute force the passwords.
+  <br>
+  <br>
+  Required skills: Burp Proxy Comparer/Intruder or bash programming using cURL, common sense.
+  <br>
+  <br>
+  Username list for this task: <a href="username_list.txt">usernames</a>
+  <br>
+  Password list for this task: <a href="password_list.txt">passwords</a>
+  <br>
+  <br>
+  Database of this task can be reset from <a href="reset-task1.php">here</a>.
+</p>
+
+<a href="">
+  <h3>Task 2</h3>
+</a>
+<p>
+  Vulnerable authentication allows the enumeration of usernames and passwords.
+  <br>
+  There is no need to perform letter based brute force since valid usernames and passwords are from the given list.
+  <br>
+  There are 7 usernames are valid in this task.
+  <br>
+  <br>
+  Registration form allows user unumeration. Create a script or use Burp proxy to find out the correct usernames from the given list.
+  <br>
+  After found correct username, you can go on to brute force the passwords.
+  <br>
+  Required skills: Burp Proxy Comparer/Intruder or bash programming using cURL, common sense.
+  <br>
+  Database of this task can be reset from <a href="reset-task1.php">here</a>.
+</p>
+
+
+<p>1. Authentication hole (login/register) </p>
+<p>2. SQL injection hole (select query) </p>
+<!--h3> Hints </h3>
+<p>Input of user can be validated on the server and on the client (web browser). </p>
+<img src = "https://www.smashingmagazine.com/wp-content/uploads/images/web-form-validation/validation.png">
+<p-->
+
+
+<h1 id="source-code">Source code</h1>
+
+<p>
+  GitHub repository: <a href="https://github.com/MatteoMaso/decamp">source code</a>
+  <br>
+  Source code zip file: <a href="https://github.com/MatteoMaso/decamp/archive/master.zip">.zip file</a>
+</p>
+
+
+<h1 id="solution"> Solution </h1>
+
+<p style="font-weight: bold;"> Brutal forcing to find password from user ID. </p>
+<p> Vulnerable authentication allows the enumeration of usernames and passwords. You can use the login screen to enumerate usernames.
+Create a script or use Burp proxy to enumerate valid username to find out a suitable pair of username and password.  </p>
+<br>
+<p style="font-weight: bold;">SQL injection </p>
+<p> Using the SQL injection to find out all person in database. From that, find out a suitable pair of username and password.
+<br>
+
+<h1 id="members"> Group members </h1>
+<p> Matteo Maso - Anh Pham - Phuong Nguyen </p>
+<!-- Content will go here -->
+</div>
+<div class="container">
+      <hr>
+      <footer>
+          <p class="pull-right">© 2017 MAP Team</p>
+        </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </body>
+</html>
