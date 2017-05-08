@@ -48,39 +48,49 @@
  }
 ?>
 
- <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-   <fieldset>
-     <legend>New user registration</legend>
-     <p>
-       <label for="email">Email:</label> <input type="email" name="email" id="email" />
-       <span class="error">* <?php echo $emailErr;?></span>
-       <br><br>
-       <label for="username">Username:</label> <input type="text" name="username" id="username" />
-       <span class="error">* <?php echo $usernameErr;?></span>
-       <br><br>
-       <label for="password">Password:</label> <input type="password" name="password" id="password" />
-       <span class="error">* <?php echo $passwordErr;?></span>
-     </p>
-     <p class="center"><input value="Register" type="submit" /></p>
-   </fieldset>
- </form>
+<div class="container">
+  <h2 class="form-signin-heading text-center">New user registration</h2>
+
+  <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">  
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required="" autofocus="">
+
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+    
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Register">Register</button>
+    <a class="text-center" href="login.php" title="Login">
+      <p>Already had an account? Log in here</p>
+    </a>
 
  <?php
  //if all the controll are ok, add user to database
  if(!($ok == 3)){
+    if ($emailErr != "") {
+      echo "<p class=\"text-center\" style=\"color: #ff7f7f;\">Email error: $emailErr</p>";
+    }
+    if ($usernameErr != "") {
+      echo "<p class=\"text-center\" style=\"color: #ff7f7f;\">Username error: $usernameErr</p>";
+    }
+    if ($passwordErr != "") {
+      //echo "<script type=\"text/javascript\">alert(\"Username error: $usernameErr  Password error: $passwordErr\");</script>";
+      echo "<p class=\"text-center\" style=\"color: #ff7f7f;\">Password error: $passwordErr</p>";
+    }
    //echo '<p>Error: Please check your field</p>';
  } else { //field is correct
    //check is the username is available
    $control = checkUsername($username);
    if ($control == false) {
      include "src/header.php";
-     echo '<p>Error: Please choose other Username</p>';
+     echo "<p class=\"text-center\" style=\"color: #ff7f7f;\">Username already taken.<br>Please use another one.</p>";
      //echo '<p><a href="sign_up.php">Try again</p>';
-     include "src/footer.php";
    } else {
      $control = addUser($email, $username, $password);
-     echo "<br/><br/> User correctly added <br/><br/> Please go to login page and Start your experience <br/><br/>";
-     //header('Location: index.php');
+     echo "<p class=\"text-center\" style=\"color: #ff7f7f;\">Registration success. Please go to login page to start your experience.</p>";
+     header('Location: login.php');
    }
  }
  //this function have to move to database.php and add controll on string
@@ -92,5 +102,8 @@
    return $result;
  }
  ?>
+
+ </form>
+</div>
 
  <?php include_once "src/footer.php"; ?>
