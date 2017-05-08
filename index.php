@@ -17,11 +17,18 @@ In this web site you can take note of all your task
 include "src/footer.php";
 
 echo '<br/> <br/> <form class="init" name="form_init" method="post">
-  <input type="submit" name="initUser" value="Initialize Users List Before start Haking" onclick="initUsers()"/>
+  <input type="submit" name="initUser" value="Reset and Initialize Users List Before start Haking" onclick="initUsers()"/>
 </form>';
 
 if(isset($_POST['initUser'])){
   $database = getConn();
+
+  $sql = "DELETE FROM users";
+  $result = $database->query($sql);
+
+  $sql = "DELETE FROM tasks";
+  $result = $database->query($sql);
+
   $sql = "INSERT INTO users (email, username, password) VALUES ('john@example.com', 'John', 'Dodo');";
   $sql .= "INSERT INTO users (email, username, password) VALUES ('mary@example.com', 'Mary', 'Mary96');";
   $sql .= "INSERT INTO users (email, username, password) VALUES ('matteo@example.com', 'matteo', 'pippo');";

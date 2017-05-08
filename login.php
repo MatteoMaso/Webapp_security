@@ -55,23 +55,6 @@
 <?php
 
   include "database.php";
-  echo '<br/> <br/> <form class="reset" name="form_reset" method="post">
-    <input type="submit" name="reset" value="Reset Database" onclick="resetDatabase()"/>
-  </form>';
-
-  if(isset($_POST['reset'])){
-    $database = getConn();
-    $sql = "DELETE FROM users";
-    $result = $database->query($sql);
-
-    $sql = "DELETE FROM tasks";
-    $result = $database->query($sql);
-
-    echo "Database reset ok!";
-
-    $database->close();
-  }
-
 
   if(!($ok == 2)){
     echo '<p>Error: Please check your field</p>';
