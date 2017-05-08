@@ -24,8 +24,8 @@
         $password = test_input($_POST["password"]);
         $ok = $ok+1;
         // check if name only contains letters and whitespace
-        if (!preg_match("/^[a-zA-Z ]*$/",$password)) {
-          $passwordErr = "Only letters and white space allowed";
+        if (!preg_match("/^[a-zA-Z 0-9]*$/",$password)) {
+          $passwordErr = "Only letters, numbers and white space allowed";
           $ok = $ok-1;
         }
     }

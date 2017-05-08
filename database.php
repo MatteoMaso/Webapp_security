@@ -72,8 +72,6 @@
 		}
 
 
-    // Test
-    //checkUsername("hello");
     //resetDatabase();
     //testConn();
  ?>
