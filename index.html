@@ -46,7 +46,7 @@ body {
 <body cz-shortcut-listen="true">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -69,7 +69,11 @@ body {
 
 <div class="container">
 <h1 id="introduction"> Introduction </h1>
-<p>In this project, there are 2 security vulnerables regarding authentication functionality and SQL injection.</p>
+<p>In this project, we made a <a href="index.php">web application</a> including 2 security vulnerabilities:</p>
+<ol>
+  <li>Authentication functionality.</li>
+  <li>SQL injection.</li>
+</ol>
 <a href="login.php">
   <h3>Task 1</h3>
 </a>
@@ -95,32 +99,37 @@ body {
   Password list for this task: <a href="password_list.txt">passwords</a>
   <br>
   <br>
-  Database of this task can be reset from <a href="reset-task1.php">here</a>.
+  Database of this task can be reset from <a href="reset-db.php">here</a>.
 </p>
 
-<a href="">
+<a href="private.php">
   <h3>Task 2</h3>
 </a>
 <p>
-  Vulnerable authentication allows the enumeration of usernames and passwords.
-  <br>
-  There is no need to perform letter based brute force since valid usernames and passwords are from the given list.
-  <br>
-  There are 7 usernames are valid in this task.
+  In this task, the goal is to gather information using SQL injection. In the web application, it reveals error messages.
   <br>
   <br>
-  Registration form allows user unumeration. Create a script or use Burp proxy to find out the correct usernames from the given list.
+  <b>
+    The mission here is to find content of all notes in the database.
+    <br>
+    After that, find all emails of all users in the database.
+  </b>
   <br>
-  After found correct username, you can go on to brute force the passwords.
   <br>
-  Required skills: Burp Proxy Comparer/Intruder or bash programming using cURL, common sense.
+  Required skills: Understanding of SQL injections.
   <br>
-  Database of this task can be reset from <a href="reset-task1.php">here</a>.
+  <br>
+  When performing code injections it is vital to have understanding of the underlying database query which the application is using.
+  <br>
+  Storing used queries on a text editor is really useful.
+  <br>
+  <br>
+  Database of this task can be reset from <a href="reset-db.php">here</a>.
 </p>
 
 
-<p>1. Authentication hole (login/register) </p>
-<p>2. SQL injection hole (select query) </p>
+<!--<p>1. Authentication hole (login/register) </p>
+<p>2. SQL injection hole (select query) </p>-->
 <!--h3> Hints </h3>
 <p>Input of user can be validated on the server and on the client (web browser). </p>
 <img src = "https://www.smashingmagazine.com/wp-content/uploads/images/web-form-validation/validation.png">
@@ -138,16 +147,111 @@ body {
 
 <h1 id="solution"> Solution </h1>
 
-<p style="font-weight: bold;"> Brutal forcing to find password from user ID. </p>
-<p> Vulnerable authentication allows the enumeration of usernames and passwords. You can use the login screen to enumerate usernames.
-Create a script or use Burp proxy to enumerate valid username to find out a suitable pair of username and password.  </p>
-<br>
-<p style="font-weight: bold;">SQL injection </p>
-<p> Using the SQL injection to find out all person in database. From that, find out a suitable pair of username and password.
-<br>
+<button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#task1-solution">
+  Task 1
+</button>
+
+<div class="modal fade" id="task1-solution" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><i>Task 1:</i> <b>Authentication vulnerability</b></h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          In this task, we can enumerate usernames using registration site and brute force passwords using login site.
+          <br>
+          <br>
+          To finish this task, we can use Burp Suite.
+          <br>
+          <br>
+          First, we can use Intruder option on Burp Suite and exploit the message return from the application. We can recognise valid usernames with a "Wrong password." message. Otherwise, the application send a message with "User not found".
+          <br>
+          <br>
+          Then, after we have found valid usernames, we can brute force password using the same strategies and looking for response without string "Wrong password." and being redirected to private.php
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#task2-solution">
+  Task 2
+</button>
+
+<div class="modal fade" id="task2-solution" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><i>Task 2:</i> <b>SQL Injection</b></h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          In this task, we use SQL injection technique to find out all notes in database.
+          <br>
+          From that, we can also, get users' email address.
+          <br>
+          <br>
+          Firstly, we can see the query is something like <b>SELECT * FROM notes WHERE note LIKE '%a%' AND username = 'John' AND done = TRUE</b>.
+          <br>
+          After seeing that, we can try to break the query by putting a single quote and some errros will be shown up.
+          <br>
+          <br>
+          Secondly, we can see all notes easily by using this in search field: <b>%'; #</b>
+          <br>
+          <br>
+          Then, we can try to use UNION based injections, but we need to know how many columns there are and which column will be shown up in the site.
+          <br>
+          We can use this in search field to reveal the database name:
+          <br>
+          <b>oaeu%' UNION SELECT null, null, database(), null; #</b>
+          <br>
+          <br>
+          After that, we can reveals table names by using this in search field:
+          <br>
+          <b>oaeu%' UNION SELECT null, null, table_name, null FROM information_schema.tables WHERE table_schema = 'heroku_75ff61745485cbc'; #</b>
+          <br>
+          <br>
+          Then, we can see column names of <i>users</i> table by using this in search field:
+          <br>
+          <b>oaeu%' UNION SELECT null, null, column_name, null FROM information_schema.columns WHERE table_schema = 'heroku_75ff61745485cbc' AND table_name = 'users'; #</b>
+          <br>
+          <br>
+          Finally, we can see all users' emails by using this in search:
+          <br>
+          <b>oaeu%' UNION SELECT email, id, username, password FROM users; #</b>
+          <br>
+
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <h1 id="members"> Group members </h1>
-<p> Matteo Maso - Anh Pham - Phuong Nguyen </p>
+<div class="container-fluid">
+  <div class="col-sm-4 text-center">
+      <img width="150px" src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p160x160/15170761_10208010145467823_6517154373447372812_n.jpg?oh=e577665fddf68c2cca18a5b59367cbe0&oe=59B24B4C">
+    <p>Matteo Maso</p>
+  </div>
+  <div class="col-sm-4 text-center">
+      <img width="150px" src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/c10.0.160.160/p160x160/13669759_1771182183126183_3158234353190325540_n.jpg?oh=a84f3e115d4b4a8f54ae49825e14ab0e&oe=59808EE4">
+    <p>Anh Pham</p>
+  </div>
+  <div class="col-sm-4 text-center">
+      <img width="150px" src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p160x160/17352002_10212181847802643_6162737247320271460_n.jpg?oh=abfd08e67aa049418af99244d1316f96&oe=59761620">
+    <p>Phuong Nguyen</p>
+  </div>
+</table>
+
 <!-- Content will go here -->
 </div>
 <div class="container">
@@ -161,6 +265,7 @@ Create a script or use Burp proxy to enumerate valid username to find out a suit
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
